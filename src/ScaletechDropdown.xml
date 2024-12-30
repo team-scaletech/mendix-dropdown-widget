@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<widget
+    id="scaletech.scaletechdropdown.ScaletechDropdown"
+    pluginWidget="true"
+    needsEntityContext="true"
+    offlineCapable="true"
+    supportedPlatform="Web"
+    xmlns="http://www.mendix.com/widget/1.0/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../node_modules/mendix/custom_widget.xsd"
+>
+    <name>Scaletech Dropdown</name>
+    <description>My widget description</description>
+    <icon />
+    <properties>
+        <propertyGroup caption="General">
+            <propertyGroup caption="Data source">
+                <property key="DataType" type="enumeration" defaultValue="Association">
+                    <caption>Type</caption>
+                    <description />
+                    <enumerationValues>
+                        <enumerationValue key="Association">Association</enumerationValue>
+                        <enumerationValue key="Enumeration">Enumeration</enumerationValue>
+                        <enumerationValue key="Boolean">Boolean</enumerationValue>
+                    </enumerationValues>
+                </property>
+                <!-- Association property type -->
+                <property
+                    key="associationData"
+                    type="association"
+                    selectableObjects="objectsDatasources"
+                    required="false"
+                >
+                    <caption>Reference</caption>
+                    <description>Reference</description>
+                    <associationTypes>
+                        <associationType name="Reference" />
+                        <associationType name="ReferenceSet" />
+                    </associationTypes>
+                </property>
+                <property key="objectsDatasources" type="datasource" isList="true" required="true">
+                    <caption>Data Source</caption>
+                    <description>Define the data source.</description>
+                </property>
+                <property key="myOption" type="textTemplate" dataSource="objectsDatasources">
+                    <caption>Option Template</caption>
+                    <description />
+                    <translations>
+                        <translation lang="en_US" />
+                    </translations>
+                </property>
+
+                <!-- Enumeration property type -->
+                <property key="EnumerationValue" type="attribute" required="true">
+                    <caption>Attribute</caption>
+                    <description />
+                    <attributeTypes>
+                        <attributeType name="Enum" />
+                    </attributeTypes>
+                </property>
+
+                <!-- Boolean Property type -->
+                <property key="BooleanValue" type="attribute" required="true">
+                    <caption>Attribute</caption>
+                    <description />
+                    <attributeTypes>
+                        <attributeType name="Boolean" />
+                    </attributeTypes>
+                </property>
+            </propertyGroup>
+        </propertyGroup>
+    </properties>
+</widget>
