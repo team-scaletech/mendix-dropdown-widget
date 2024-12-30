@@ -58,7 +58,6 @@ export const ScaletechDropdown = (props: ScaletechDropdownContainerProps): React
 
     // Handle dropdown selection changes
     const handleSelectionChange = (selected: SelectionData) => {
-        // Find the selected Mendix object
         if (associationData && associationData.setValue && objectsDatasources && objectsDatasources.items) {
             const selectedObject = objectsDatasources.items.find(
                 item => myOption?.get(item)?.value === selected.values
