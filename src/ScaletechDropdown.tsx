@@ -8,7 +8,7 @@ export interface SelectionData {
 }
 
 export const ScaletechDropdown = (props: ScaletechDropdownContainerProps): ReactElement => {
-    const { objectsDatasources, myOption, associationData, EnumerationValue, BooleanValue } = props;
+    const { objectsDatasources, myOption, associationData, EnumerationValue, BooleanValue, myPlaceholderText } = props;
 
     const [options, setOptions] = useState<SelectionData[]>([]);
     const [selectOptionValue, setSelectOptionValue] = useState<SelectionData[]>([]);
@@ -71,10 +71,13 @@ export const ScaletechDropdown = (props: ScaletechDropdownContainerProps): React
     };
 
     return (
-        <Selection
-            SelectionData={options}
-            handleSelectionChange={handleSelectionChange}
-            optionValue={selectOptionValue}
-        />
+        <div style={{ width: "100%" }}>
+            <Selection
+                SelectionData={options}
+                handleSelectionChange={handleSelectionChange}
+                optionValue={selectOptionValue}
+                placeholderText={myPlaceholderText?.value}
+            />
+        </div>
     );
 };

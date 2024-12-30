@@ -68,6 +68,20 @@
                     </attributeTypes>
                 </property>
             </propertyGroup>
+
+            <propertyGroup caption="General">
+                <property key="myPlaceholderText" type="textTemplate" required="false">
+                    <caption>Placeholder Text</caption>
+                    <description />
+                    <translations>
+                        <translation lang="en_US" />
+                    </translations>
+                </property>
+            </propertyGroup>
+
+            <propertyGroup caption="Label">
+                <systemProperty key="Label" />
+            </propertyGroup>
         </propertyGroup>
     </properties>
 </widget>

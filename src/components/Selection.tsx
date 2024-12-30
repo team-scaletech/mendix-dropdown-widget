@@ -6,9 +6,11 @@ interface SelectionProps {
     SelectionData?: SelectionData[];
     handleSelectionChange?: (e: SelectionData) => void;
     optionValue?: SelectionData[];
+    placeholderText?: string;
 }
 
-const Selection: FC<SelectionProps> = ({ SelectionData, handleSelectionChange, optionValue }) => {
+const Selection: FC<SelectionProps> = props => {
+    const { SelectionData, handleSelectionChange, optionValue, placeholderText } = props;
     return (
         <Select
             options={SelectionData || []}
@@ -16,6 +18,7 @@ const Selection: FC<SelectionProps> = ({ SelectionData, handleSelectionChange, o
             valueField="values"
             values={optionValue ? optionValue : []}
             onChange={values => handleSelectionChange?.(values[0])}
+            placeholder={placeholderText ? placeholderText : ""}
         />
     );
 };
