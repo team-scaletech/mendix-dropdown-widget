@@ -4,21 +4,23 @@ import { SelectionData } from "src/ScaletechDropdown";
 
 interface SelectionProps {
     SelectionData?: SelectionData[];
-    handleSelectionChange?: (e: SelectionData) => void;
+    handleSelectionChange?: (e: SelectionData[]) => void;
     optionValue?: SelectionData[];
     placeholderText?: string;
+    isMulti?: boolean;
 }
 
 const Selection: FC<SelectionProps> = props => {
-    const { SelectionData, handleSelectionChange, optionValue, placeholderText } = props;
+    const { SelectionData, handleSelectionChange, optionValue, placeholderText, isMulti } = props;
     return (
         <Select
             options={SelectionData || []}
             labelField="values"
             valueField="values"
             values={optionValue ? optionValue : []}
-            onChange={values => handleSelectionChange?.(values[0])}
+            onChange={values => handleSelectionChange?.(values)}
             placeholder={placeholderText ? placeholderText : ""}
+            multi={isMulti}
         />
     );
 };

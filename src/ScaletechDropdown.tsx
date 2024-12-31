@@ -1,6 +1,7 @@
 import { createElement, ReactElement, useState, useEffect } from "react";
 import { ScaletechDropdownContainerProps } from "../typings/ScaletechDropdownProps";
 import Selection from "./components/Selection";
+import { GUID } from "mendix";
 
 export interface SelectionData {
     id: string;
@@ -12,6 +13,7 @@ export const ScaletechDropdown = (props: ScaletechDropdownContainerProps): React
 
     const [options, setOptions] = useState<SelectionData[]>([]);
     const [selectOptionValue, setSelectOptionValue] = useState<SelectionData[]>([]);
+    const [isMulti, setIsMulti] = useState(false);
 
     useEffect(() => {
         if (objectsDatasources && objectsDatasources.items) {
@@ -21,11 +23,25 @@ export const ScaletechDropdown = (props: ScaletechDropdownContainerProps): React
             }));
             setOptions(dropdownOptions);
 
-            if (associationData && associationData.value) {
-                const currentAssociationId: any = associationData.value;
-                const AssociationId = currentAssociationId.id;
-                const filteredOption = dropdownOptions.filter(item => item.id === AssociationId);
-                setSelectOptionValue(filteredOption);
+            if (associationData && associationData.value !== undefined) {
+                setIsMulti(associationData.type === "ReferenceSet");
+                if (isMulti) {
+                    // Ensure associationData.value is an array
+                    if (Array.isArray(associationData.value)) {
+                        const currentAssociation = associationData.value;
+                        const filteredOption = dropdownOptions.filter(itemB =>
+                            currentAssociation.some((itemA: { id: GUID }) => itemA.id === itemB.id)
+                        );
+                        setSelectOptionValue(filteredOption);
+                    } else {
+                        console.error("Expected associationData.value to be an array, but it is not.");
+                    }
+                } else {
+                    const currentAssociationId: any = associationData.value;
+                    const AssociationId = currentAssociationId.id;
+                    const filteredOption = dropdownOptions.filter(item => item.id === AssociationId);
+                    setSelectOptionValue(filteredOption);
+                }
             }
         } else if (EnumerationValue && EnumerationValue.universe) {
             const dropdownOptions = generateDropdownOptions(EnumerationValue.universe, item => ({
@@ -57,16 +73,34 @@ export const ScaletechDropdown = (props: ScaletechDropdownContainerProps): React
     };
 
     // Handle dropdown selection changes
-    const handleSelectionChange = (selected: SelectionData) => {
+    const handleSelectionChange = (selected: SelectionData[]) => {
         if (associationData && associationData.setValue && objectsDatasources && objectsDatasources.items) {
-            const selectedObject = objectsDatasources.items.find(
-                item => myOption?.get(item)?.value === selected.values
-            );
-            associationData.setValue(selectedObject as any);
+            if (isMulti) {
+                // Handle multiple selections
+                const selectedObjects = objectsDatasources.items.filter(itemA =>
+                    selected.some(itemB => itemA.id === itemB.id)
+                );
+                // Check if setValue accepts an array
+                if (Array.isArray(associationData.value)) {
+                    associationData.setValue(selectedObjects as any); // Cast if necessary
+                } else {
+                    console.error("Expected an array, but the associationData type doesn't match.");
+                }
+            } else {
+                // Handle single selection
+                const selectedObject = objectsDatasources.items.find(
+                    item => myOption?.get(item)?.value === selected[0]?.values
+                );
+                if (selectedObject) {
+                    associationData.setValue(selectedObject as any);
+                } else {
+                    console.error("No matching object found for the selected value.");
+                }
+            }
         } else if (EnumerationValue) {
-            EnumerationValue.setValue(selected.values);
+            EnumerationValue.setValue(selected[0]?.values);
         } else if (BooleanValue) {
-            BooleanValue.setValue(selected.values.toLowerCase() === "true");
+            BooleanValue.setValue(selected[0]?.values.toLowerCase() === "true");
         }
     };
 
@@ -77,6 +111,7 @@ export const ScaletechDropdown = (props: ScaletechDropdownContainerProps): React
                 handleSelectionChange={handleSelectionChange}
                 optionValue={selectOptionValue}
                 placeholderText={myPlaceholderText?.value}
+                isMulti={isMulti}
             />
         </div>
     );
