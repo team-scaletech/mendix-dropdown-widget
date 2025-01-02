@@ -25,7 +25,7 @@ export const ScaletechDropdown = (props: ScaletechDropdownContainerProps): React
 
             if (associationData && associationData.value !== undefined) {
                 setIsMulti(associationData.type === "ReferenceSet");
-                if (isMulti) {
+                if (associationData.type === "ReferenceSet") {
                     // Ensure associationData.value is an array
                     if (Array.isArray(associationData.value)) {
                         const currentAssociation = associationData.value;
