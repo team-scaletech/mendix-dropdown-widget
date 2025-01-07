@@ -31,7 +31,8 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
-    "react-dropdown-select": "^4.11.4"
+    "react-dropdown-select": "^4.11.4",
+    "react-select": "^5.9.0"
   },
   "resolutions": {
     "react": "^18.2.0",
