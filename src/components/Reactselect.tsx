@@ -94,7 +94,7 @@ const ReactSelection: FC<SelectionProps> = props => {
                 // menuIsOpen={true}
                 // onMenuOpen={() => setMenuIsOpen(true)} // Keep dropdown open
                 // onMenuClose={() => setMenuIsOpen(false)} // Allow closing when clicking outside
-                closeMenuOnSelect={false}
+                closeMenuOnSelect={!isMulti}
                 hideSelectedOptions={false}
                 menuPortalTarget={document.body}
             />

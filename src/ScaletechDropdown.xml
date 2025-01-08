@@ -31,19 +31,19 @@
                     selectableObjects="objectsDatasources"
                     required="false"
                 >
-                    <caption>Reference</caption>
-                    <description>Reference</description>
+                    <caption>Entity</caption>
+                    <description />
                     <associationTypes>
                         <associationType name="Reference" />
                         <associationType name="ReferenceSet" />
                     </associationTypes>
                 </property>
                 <property key="objectsDatasources" type="datasource" isList="true" required="true">
-                    <caption>Data Source</caption>
-                    <description>Define the data source.</description>
+                    <caption>Selectable Objects</caption>
+                    <description />
                 </property>
                 <property key="myOption" type="textTemplate" dataSource="objectsDatasources">
-                    <caption>Option Template</caption>
+                    <caption>Caption</caption>
                     <description />
                     <translations>
                         <translation lang="en_US" />

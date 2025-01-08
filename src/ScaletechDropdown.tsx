@@ -50,11 +50,15 @@ export const ScaletechDropdown = (props: ScaletechDropdownContainerProps): React
             }));
             updateDropdownOptions(dropdownOptions, convertToString(EnumerationValue.value));
         } else if (BooleanValue && BooleanValue.universe) {
-            const dropdownOptions = generateDropdownOptions(BooleanValue.universe, item => ({
-                label: item.toString(),
-                value: item.toString()
-            }));
-            updateDropdownOptions(dropdownOptions, convertToString(BooleanValue.value));
+            const dropdownOptions = generateDropdownOptions(BooleanValue.universe, item => {
+                const booleanItem = item ? "Yes" : "No"; // This variable is declared but not used.
+                return {
+                    label: booleanItem,
+                    value: booleanItem
+                };
+            });
+            const selectBoolean = convertToString(BooleanValue.value).toLowerCase() === "true" ? "Yes" : "No";
+            updateDropdownOptions(dropdownOptions, selectBoolean);
         }
     }, [objectsDatasources, associationData, EnumerationValue, BooleanValue]);
 
@@ -73,10 +77,10 @@ export const ScaletechDropdown = (props: ScaletechDropdownContainerProps): React
     };
 
     // Handle dropdown selection changes
-    const handleSelectionChange = (selected: SelectionData[] | SelectionData) => {    
+    const handleSelectionChange = (selected: SelectionData[] | SelectionData) => {
         if (associationData && associationData.setValue && objectsDatasources && objectsDatasources.items) {
             // Check if selected is an object (not an array)
-            if (typeof selected === 'object' && selected !== null && !Array.isArray(selected)) {
+            if (typeof selected === "object" && selected !== null && !Array.isArray(selected)) {
                 // Handle single selection (object case)
                 const selectedObject = objectsDatasources.items.find(
                     item => myOption?.get(item)?.value === selected.label
@@ -101,24 +105,23 @@ export const ScaletechDropdown = (props: ScaletechDropdownContainerProps): React
             }
         }
         // Handle enumeration and boolean values if selected is an object
-        else if (typeof selected === 'object' && selected !== null && !Array.isArray(selected)) {
+        else if (typeof selected === "object" && selected !== null && !Array.isArray(selected)) {
             if (EnumerationValue) {
                 EnumerationValue.setValue(selected.label);
             } else if (BooleanValue) {
-                BooleanValue.setValue(selected.label.toLowerCase() === "true");
+                BooleanValue.setValue(selected.label.toLowerCase() === "yes");
             }
         }
     };
-    
 
     return (
         <div style={{ width: "100%" }}>
-            <ReactSelection 
-              SelectionData={selectOptionValue}
-              handleSelectionChange={handleSelectionChange}
-              optionValue={ options}
-              placeholderText={myPlaceholderText?.value}
-              isMulti={isMulti}
+            <ReactSelection
+                SelectionData={selectOptionValue}
+                handleSelectionChange={handleSelectionChange}
+                optionValue={options}
+                placeholderText={myPlaceholderText?.value}
+                isMulti={isMulti}
             />
         </div>
     );
