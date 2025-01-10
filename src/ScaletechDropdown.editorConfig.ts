@@ -158,6 +158,12 @@ export function getProperties(_values: ScaletechDropdownPreviewProps, defaultPro
             "EnumerationValue"
         ]);
     }
+     if (_values.SelectionMethod==="RowClick"){
+        hidePropertiesIn(defaultProperties, _values, [
+          "isSelect",
+          "CaptionSelect"
+        ]);
+    }
 
     // Always return the defaultProperties, even if no changes were made
     return defaultProperties;

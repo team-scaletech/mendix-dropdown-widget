@@ -2,6 +2,7 @@ import { createElement, FC, useEffect, useState } from "react";
 import Select, { components } from "react-select";
 import { SelectionData } from "src/ScaletechDropdown";
 import "../ui/ScaletechDropdown.css";
+import { SelectionMethodEnum } from "typings/ScaletechDropdownProps";
 
 interface SelectionProps {
     SelectionData?: SelectionData[];
@@ -9,11 +10,25 @@ interface SelectionProps {
     optionValue?: SelectionData[];
     placeholderText?: string;
     isMulti?: boolean;
+    SelectionMethod?: SelectionMethodEnum;
+    isSelect?: boolean;
+    CaptionSelect?: string;
+    readOnly?: boolean;
 }
 
 const ReactSelection: FC<SelectionProps> = props => {
-    const { SelectionData, handleSelectionChange, optionValue, placeholderText, isMulti } = props;
-
+    const {
+        SelectionData,
+        handleSelectionChange,
+        optionValue,
+        placeholderText,
+        isMulti,
+        SelectionMethod,
+        isSelect,
+        CaptionSelect,
+        readOnly
+    } = props;
+    console.warn("readOnly", readOnly);
     const [selectedOptions, setSelectedOptions] = useState<SelectionData[]>();
     const [allSelected, setAllSelected] = useState(false);
     // const [menuIsOpen, setMenuIsOpen] = useState(false); // Manage dropdown visibility
@@ -48,18 +63,20 @@ const ReactSelection: FC<SelectionProps> = props => {
     const customMenuList = (props: any) => {
         return (
             <components.MenuList {...props}>
-                <div>
-                    <div
-                        className="dropdown-actions"
-                        onClick={e => {
-                            e.stopPropagation();
-                            allSelected ? handleClearAll() : handleSelectAll();
-                        }}
-                    >
-                        <input type="checkbox" checked={allSelected} readOnly />
-                        <label>Select All</label>
+                {isSelect && (
+                    <div>
+                        <div
+                            className="dropdown-actions"
+                            onClick={e => {
+                                e.stopPropagation();
+                                allSelected ? handleClearAll() : handleSelectAll();
+                            }}
+                        >
+                            <input type="checkbox" checked={allSelected} readOnly />
+                            <label>{CaptionSelect}</label>
+                        </div>
                     </div>
-                </div>
+                )}
                 {props.children}
             </components.MenuList>
         );
@@ -90,10 +107,11 @@ const ReactSelection: FC<SelectionProps> = props => {
                 placeholder={placeholderText || ""}
                 isMulti={isMulti}
                 classNamePrefix="react-select-option"
-                components={isMulti ? { MenuList: customMenuList, Option: customOption } : {}}
+                components={
+                    isMulti && SelectionMethod === "Checkbox" ? { MenuList: customMenuList, Option: customOption } : {}
+                }
                 // menuIsOpen={true}
-                // onMenuOpen={() => setMenuIsOpen(true)} // Keep dropdown open
-                // onMenuClose={() => setMenuIsOpen(false)} // Allow closing when clicking outside
+                isDisabled={readOnly}
                 closeMenuOnSelect={!isMulti}
                 hideSelectedOptions={false}
                 menuPortalTarget={document.body}
