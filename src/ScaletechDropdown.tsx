@@ -25,6 +25,7 @@ export const ScaletechDropdown = (props: ScaletechDropdownContainerProps): React
     const [options, setOptions] = useState<SelectionData[]>([]);
     const [selectOptionValue, setSelectOptionValue] = useState<SelectionData[]>([]);
     const [isMulti, setIsMulti] = useState(false);
+    const [readOnly, setReadOnly] = useState(false);
 
     useEffect(() => {
         if (objectsDatasources && objectsDatasources.items) {
@@ -35,6 +36,7 @@ export const ScaletechDropdown = (props: ScaletechDropdownContainerProps): React
             setOptions(dropdownOptions);
 
             if (associationData && associationData.value !== undefined) {
+                setReadOnly(associationData.readOnly);
                 setIsMulti(associationData.type === "ReferenceSet");
                 if (associationData.type === "ReferenceSet") {
                     // Ensure associationData.value is an array
@@ -60,6 +62,7 @@ export const ScaletechDropdown = (props: ScaletechDropdownContainerProps): React
                 value: item
             }));
             updateDropdownOptions(dropdownOptions, convertToString(EnumerationValue.value));
+            setReadOnly(EnumerationValue.readOnly);
         } else if (BooleanValue && BooleanValue.universe) {
             const dropdownOptions = generateDropdownOptions(BooleanValue.universe, item => {
                 const booleanItem = item ? "Yes" : "No"; // This variable is declared but not used.
@@ -70,6 +73,7 @@ export const ScaletechDropdown = (props: ScaletechDropdownContainerProps): React
             });
             const selectBoolean = convertToString(BooleanValue.value).toLowerCase() === "true" ? "Yes" : "No";
             updateDropdownOptions(dropdownOptions, selectBoolean);
+            setReadOnly(BooleanValue.readOnly);
         }
     }, [objectsDatasources, associationData, EnumerationValue, BooleanValue]);
 
@@ -139,6 +143,7 @@ export const ScaletechDropdown = (props: ScaletechDropdownContainerProps): React
                 SelectionMethod={SelectionMethod}
                 isSelect={isSelect}
                 CaptionSelect={CaptionSelect.value}
+                readOnly={readOnly}
             />
         </div>
     );

@@ -28,7 +28,6 @@ const ReactSelection: FC<SelectionProps> = props => {
         CaptionSelect,
         readOnly
     } = props;
-    console.warn("readOnly", readOnly);
     const [selectedOptions, setSelectedOptions] = useState<SelectionData[]>();
     const [allSelected, setAllSelected] = useState(false);
     // const [menuIsOpen, setMenuIsOpen] = useState(false); // Manage dropdown visibility

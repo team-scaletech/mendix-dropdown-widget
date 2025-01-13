@@ -158,13 +158,106 @@ export function getProperties(_values: ScaletechDropdownPreviewProps, defaultPro
             "EnumerationValue"
         ]);
     }
-     if (_values.SelectionMethod==="RowClick"){
-        hidePropertiesIn(defaultProperties, _values, [
-          "isSelect",
-          "CaptionSelect"
-        ]);
+    if (_values.SelectionMethod === "RowClick") {
+        hidePropertiesIn(defaultProperties, _values, ["isSelect", "CaptionSelect"]);
     }
 
     // Always return the defaultProperties, even if no changes were made
     return defaultProperties;
+}
+
+// export function getPreview(_values: ScaletechDropdownPreviewProps, isDarkMode: boolean): PreviewProps {
+//     // Define your color palette
+//     const readOnlyColor = "lightgray"; // Color when widget is readOnly
+//     const defaultColor = isDarkMode ? "#333333" : "#FFFFFF"; // Default color based on dark mode
+
+//     // Define icon filter based on readOnly state
+//     const iconClass = _values.readOnly ? "readonly-icon" : "default-icon"; // Class for styling icon
+
+//     return {
+//         type: "Container",
+//         borders: true,
+//         borderWidth: 1,
+//         borderRadius: 2,
+//         backgroundColor: _values.readOnly ? readOnlyColor : defaultColor, // Apply color change based on readOnly state
+//         padding: 4,
+//         children: [
+//             {
+//                 type: "RowLayout",
+//                 columnSize: "grow",
+//                 children: [
+//                     {
+//                         type: "Container",
+//                         grow: 1,
+//                         borders: true,
+//                         borderWidth: 1,
+//                         borderRadius: 2,
+//                         backgroundColor: _values.readOnly ? readOnlyColor : defaultColor, // Apply color change here as well
+//                         padding: 4,
+//                         children: []
+//                     },
+//                     // Add the widget icon here
+//                     {
+//                         type: "Image",
+//                         document: iconClass, // Use SVG icon (replace with your path)
+//                         width: 24, // Width of the icon
+//                         height: 24, // Height of the icon
+//                         property: {
+//                             document: iconClass // Use SVG icon (replace with your path)
+//                         }
+//                     }
+//                 ]
+//             }
+//         ]
+//     };
+// }
+
+export function getPreview(_values: ScaletechDropdownPreviewProps, isDarkMode: boolean): PreviewProps {
+    // Define your color palette
+    const readOnlyColor = "lightgray"; // Color for readOnly state
+    const defaultColor = isDarkMode ? "#333333" : "#FFFFFF"; // Default color based on dark mode
+
+    // Determine the current background color
+    const backgroundColor = _values.readOnly ? readOnlyColor : defaultColor;
+
+    // Base64 encoded icon for default
+    const BASE64_DEFAULT_ICON =
+        "iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAHdElNRQfpAQkKJwBqpbFjAAADEklEQVRYw+3XT2hcVRQG8N+beeM0SYNNpHTUlgRaWiOIFl1oCxa7URSRIkIp1IXoQkGIIKhVFy6EiCAuFLf+gS7cCUEExVIsEoW2GoUUaQVRjGJsTBqTOpnMdTHp5E1nXmaSmaz0uzBc7rn3O2e+e+6597HBiJC3zwH9og7yBhed9KV/6DViVtiANmtEb+wpw/KCxXVFmhOlrM3pNWw6ct5OC950ch0y9Hvddhc871Kd9YBhXS5QEpzWv674C84JzuhrYOt3WlDKyGJBsY0NXUmOWL/ccr9oAdlMG8RXY5NnnfCSnuRgnOh3e8SQkLL8K6NKq9I/5wV5Q7q84u8VQxCcshn3m18l6SbdkrIHZ/XJOOby8syiV+X0OCUISYlmTCtbatiCKfOp0QdbHZU371OX5Bxx/RUlkhKNechAKsU5P6Y6iEwblfWutzzmSZ+ZWtn6FYnWjhWJ2KQgh9g2XdhckSheF3EjXPYbKPk9OZxRRJ9r26BunHdb9KEY+87t9njHWGqCphP3ug4Fz5i/qhZH7rQH4xw2tSG1NAimHCZ21ITFjpMvmnBUHCGyw222dPjC+cs3fl6z7P9FVHTPuMvemtFZn9QemPaw2/m6LHitM9SVarpVoc6yS0fKSJwQ6msfoGzA07qqM7rlm7IEc2mXUTLKCW8L2OuJqoObjdjRJJsjZR96o/HDJ66ZWN876MGWlOj23nI1XcVBaND7wue2t/QPLjaXaJdHUTaYUH3cId1N4y+bTnsZJh3st7/OHsyabUmkFFTSdMqfdZafVn2ktIzKdmbd446aTZ7xkV864eB/NEW0/HuToZobbc6Ymc65GfStslK1LSl6uTPUlXNwo50i2cR4xq3iTiRqspp+bxRBwRH5qmDZhmU7WGztQk8uPuPYcjU9VC0Wg1400ICq5Ljjrbhodqk84PEUyzYfm27fwVnjCg0iDU6YW6tEN7hXULY7MTrmvoYP45JfW/uyTjo46G4QVb8UKZs02QrR6g5mzOmRcU3C8oeldoivoJKMOQ/bV3OSZ7zvh0442HD8C2fTckA7xNJvAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDI1LTAxLTA5VDEwOjM3OjE2KzAwOjAwBMe2HgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyNS0wMS0wOVQxMDozNzoxNiswMDowMHWaDqIAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwaAAAAAElFTkSuQmCC";
+
+    const icon = { data: BASE64_DEFAULT_ICON };
+
+    return {
+        type: "Container",
+        borders: true,
+        borderWidth: 1,
+        borderRadius: 2,
+        backgroundColor, // Use the determined background color
+        padding: 0,
+        children: [
+            {
+                type: "RowLayout",
+                columnSize: "grow",
+                children: [
+                    {
+                        type: "Container",
+                        grow: 1,
+                        borders: true,
+                        borderWidth: 1,
+                        borderRadius: 2,
+                        backgroundColor, // Reuse the background color
+                        padding: 0,
+                        children: []
+                    },
+                    // Add the widget icon
+                    {
+                        type: "Image",
+                        ...icon, // Use either Base64 or SVG dynamically
+                        // property: [{ icon: "scaletech" }],
+                        width: 24,
+                        height: 24
+                    }
+                ]
+            }
+        ]
+    };
 }
