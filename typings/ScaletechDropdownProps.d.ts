@@ -3,15 +3,7 @@
  * WARNING: All changes made to this file will be overwritten
  * @author Mendix Widgets Framework Team
  */
-import {
-    ActionValue,
-    DynamicValue,
-    EditableValue,
-    ListValue,
-    ListExpressionValue,
-    ReferenceValue,
-    ReferenceSetValue
-} from "mendix";
+import { ActionValue, DynamicValue, EditableValue, ListValue, ListExpressionValue, ReferenceValue, ReferenceSetValue } from "mendix";
 
 export type DataTypeEnum = "Association" | "Enumeration" | "Boolean";
 
