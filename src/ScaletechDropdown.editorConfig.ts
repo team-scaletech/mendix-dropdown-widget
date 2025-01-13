@@ -166,72 +166,36 @@ export function getProperties(_values: ScaletechDropdownPreviewProps, defaultPro
     return defaultProperties;
 }
 
-// export function getPreview(_values: ScaletechDropdownPreviewProps, isDarkMode: boolean): PreviewProps {
-//     // Define your color palette
-//     const readOnlyColor = "lightgray"; // Color when widget is readOnly
-//     const defaultColor = isDarkMode ? "#333333" : "#FFFFFF"; // Default color based on dark mode
+export function getPreview(values: ScaletechDropdownPreviewProps, isDarkMode: boolean): PreviewProps {
+    const readOnlyColor = "lightgray"; // Color when widget is readOnly
+    const defaultColor = isDarkMode ? "#333333" : "#FFFFFF";
+    const svgIcon = ` <svg
+            class="svg-icon"
+            style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path d="M556.01602 769.767264l453.883943-454.93226c18.798868-18.797098 18.798868-49.373591 0.008854-68.167148-9.057669-9.054127-21.159352-14.042485-34.080917-14.042485s-25.023249 4.988358-34.082688 14.044256L511.467873 687.601901 82.146769 246.561608c-8.95142-8.94965-21.054874-13.938008-33.972898-13.938008-12.919795 0-25.023249 4.988358-34.082688 14.044256-18.786473 18.791785-18.786473 49.368279 0 68.156523l452.562922 454.652473c10.723996 9.19225 25.28887 21.563095 38.55043 21.559553 1.156336 0 2.30913-0.093853 3.424737-0.279787l2.103717-0.348849 2.078925 0.462181c1.514038 0.336453 3.102451 0.504679 4.720967 0.504679 10.879827 0.001771 24.546902-7.672899 38.483139-21.607365z" />
+        </svg>`;
 
-//     // Define icon filter based on readOnly state
-//     const iconClass = _values.readOnly ? "readonly-icon" : "default-icon"; // Class for styling icon
-
-//     return {
-//         type: "Container",
-//         borders: true,
-//         borderWidth: 1,
-//         borderRadius: 2,
-//         backgroundColor: _values.readOnly ? readOnlyColor : defaultColor, // Apply color change based on readOnly state
-//         padding: 4,
-//         children: [
-//             {
-//                 type: "RowLayout",
-//                 columnSize: "grow",
-//                 children: [
-//                     {
-//                         type: "Container",
-//                         grow: 1,
-//                         borders: true,
-//                         borderWidth: 1,
-//                         borderRadius: 2,
-//                         backgroundColor: _values.readOnly ? readOnlyColor : defaultColor, // Apply color change here as well
-//                         padding: 4,
-//                         children: []
-//                     },
-//                     // Add the widget icon here
-//                     {
-//                         type: "Image",
-//                         document: iconClass, // Use SVG icon (replace with your path)
-//                         width: 24, // Width of the icon
-//                         height: 24, // Height of the icon
-//                         property: {
-//                             document: iconClass // Use SVG icon (replace with your path)
-//                         }
-//                     }
-//                 ]
-//             }
-//         ]
-//     };
-// }
-
-export function getPreview(_values: ScaletechDropdownPreviewProps, isDarkMode: boolean): PreviewProps {
-    // Define your color palette
-    const readOnlyColor = "lightgray"; // Color for readOnly state
-    const defaultColor = isDarkMode ? "#333333" : "#FFFFFF"; // Default color based on dark mode
-
-    // Determine the current background color
-    const backgroundColor = _values.readOnly ? readOnlyColor : defaultColor;
-
-    // Base64 encoded icon for default
-    const BASE64_DEFAULT_ICON =
-        "iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAHdElNRQfpAQkKJwBqpbFjAAADEklEQVRYw+3XT2hcVRQG8N+beeM0SYNNpHTUlgRaWiOIFl1oCxa7URSRIkIp1IXoQkGIIKhVFy6EiCAuFLf+gS7cCUEExVIsEoW2GoUUaQVRjGJsTBqTOpnMdTHp5E1nXmaSmaz0uzBc7rn3O2e+e+6597HBiJC3zwH9og7yBhed9KV/6DViVtiANmtEb+wpw/KCxXVFmhOlrM3pNWw6ct5OC950ch0y9Hvddhc871Kd9YBhXS5QEpzWv674C84JzuhrYOt3WlDKyGJBsY0NXUmOWL/ccr9oAdlMG8RXY5NnnfCSnuRgnOh3e8SQkLL8K6NKq9I/5wV5Q7q84u8VQxCcshn3m18l6SbdkrIHZ/XJOOby8syiV+X0OCUISYlmTCtbatiCKfOp0QdbHZU371OX5Bxx/RUlkhKNechAKsU5P6Y6iEwblfWutzzmSZ+ZWtn6FYnWjhWJ2KQgh9g2XdhckSheF3EjXPYbKPk9OZxRRJ9r26BunHdb9KEY+87t9njHWGqCphP3ug4Fz5i/qhZH7rQH4xw2tSG1NAimHCZ21ITFjpMvmnBUHCGyw222dPjC+cs3fl6z7P9FVHTPuMvemtFZn9QemPaw2/m6LHitM9SVarpVoc6yS0fKSJwQ6msfoGzA07qqM7rlm7IEc2mXUTLKCW8L2OuJqoObjdjRJJsjZR96o/HDJ66ZWN876MGWlOj23nI1XcVBaND7wue2t/QPLjaXaJdHUTaYUH3cId1N4y+bTnsZJh3st7/OHsyabUmkFFTSdMqfdZafVn2ktIzKdmbd446aTZ7xkV864eB/NEW0/HuToZobbc6Ymc65GfStslK1LSl6uTPUlXNwo50i2cR4xq3iTiRqspp+bxRBwRH5qmDZhmU7WGztQk8uPuPYcjU9VC0Wg1400ICq5Ljjrbhodqk84PEUyzYfm27fwVnjCg0iDU6YW6tEN7hXULY7MTrmvoYP45JfW/uyTjo46G4QVb8UKZs02QrR6g5mzOmRcU3C8oeldoivoJKMOQ/bV3OSZ7zvh0442HD8C2fTckA7xNJvAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDI1LTAxLTA5VDEwOjM3OjE2KzAwOjAwBMe2HgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyNS0wMS0wOVQxMDozNzoxNiswMDowMHWaDqIAAAAZdEVYdFNvZnR3YXJlAHd3dy5pbmtzY2FwZS5vcmeb7jwaAAAAAElFTkSuQmCC";
-
-    const icon = { data: BASE64_DEFAULT_ICON };
+    const objectsDatasources = values.objectsDatasources;
+    const contenName = (() => {
+        if (objectsDatasources && "caption" in objectsDatasources) {
+            return objectsDatasources.caption;
+        } else if (values.EnumerationValue) {
+            return `[enumeration, ${values.EnumerationValue}]`;
+        } else {
+            return `[boolean, ${values.BooleanValue}]`;
+        }
+    })();
 
     return {
         type: "Container",
         borders: true,
         borderWidth: 1,
         borderRadius: 2,
-        backgroundColor, // Use the determined background color
+        backgroundColor: values.readOnly ? readOnlyColor : defaultColor, // Apply color change based on readOnly state
         padding: 0,
         children: [
             {
@@ -241,20 +205,28 @@ export function getPreview(_values: ScaletechDropdownPreviewProps, isDarkMode: b
                     {
                         type: "Container",
                         grow: 1,
-                        borders: true,
-                        borderWidth: 1,
-                        borderRadius: 2,
-                        backgroundColor, // Reuse the background color
-                        padding: 0,
-                        children: []
+                        padding: 6,
+                        children: [
+                            {
+                                type: "Text",
+                                content: contenName as any,
+                                fontSize: 9,
+                                fontColor: "#4667f7"
+                            }
+                        ]
                     },
-                    // Add the widget icon
                     {
-                        type: "Image",
-                        ...icon, // Use either Base64 or SVG dynamically
-                        // property: [{ icon: "scaletech" }],
-                        width: 24,
-                        height: 24
+                        type: "Container",
+                        grow: 0,
+                        padding: 6,
+                        children: [
+                            {
+                                type: "Image",
+                                document: svgIcon,
+                                width: 15, // Width of the icon
+                                height: 15 // Height of the icon
+                            }
+                        ]
                     }
                 ]
             }
