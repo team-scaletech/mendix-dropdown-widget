@@ -9,11 +9,23 @@ export interface SelectionData {
 }
 
 export const ScaletechDropdown = (props: ScaletechDropdownContainerProps): ReactElement => {
-    const { objectsDatasources, myOption, associationData, EnumerationValue, BooleanValue, myPlaceholderText } = props;
+    const {
+        objectsDatasources,
+        myOption,
+        associationData,
+        EnumerationValue,
+        BooleanValue,
+        myPlaceholderText,
+        OnChange,
+        SelectionMethod,
+        isSelect,
+        CaptionSelect
+    } = props;
 
     const [options, setOptions] = useState<SelectionData[]>([]);
     const [selectOptionValue, setSelectOptionValue] = useState<SelectionData[]>([]);
     const [isMulti, setIsMulti] = useState(false);
+    const [readOnly, setReadOnly] = useState(false);
 
     useEffect(() => {
         if (objectsDatasources && objectsDatasources.items) {
@@ -24,6 +36,7 @@ export const ScaletechDropdown = (props: ScaletechDropdownContainerProps): React
             setOptions(dropdownOptions);
 
             if (associationData && associationData.value !== undefined) {
+                setReadOnly(associationData.readOnly);
                 setIsMulti(associationData.type === "ReferenceSet");
                 if (associationData.type === "ReferenceSet") {
                     // Ensure associationData.value is an array
@@ -49,6 +62,7 @@ export const ScaletechDropdown = (props: ScaletechDropdownContainerProps): React
                 value: item
             }));
             updateDropdownOptions(dropdownOptions, convertToString(EnumerationValue.value));
+            setReadOnly(EnumerationValue.readOnly);
         } else if (BooleanValue && BooleanValue.universe) {
             const dropdownOptions = generateDropdownOptions(BooleanValue.universe, item => {
                 const booleanItem = item ? "Yes" : "No"; // This variable is declared but not used.
@@ -59,6 +73,7 @@ export const ScaletechDropdown = (props: ScaletechDropdownContainerProps): React
             });
             const selectBoolean = convertToString(BooleanValue.value).toLowerCase() === "true" ? "Yes" : "No";
             updateDropdownOptions(dropdownOptions, selectBoolean);
+            setReadOnly(BooleanValue.readOnly);
         }
     }, [objectsDatasources, associationData, EnumerationValue, BooleanValue]);
 
@@ -78,6 +93,9 @@ export const ScaletechDropdown = (props: ScaletechDropdownContainerProps): React
 
     // Handle dropdown selection changes
     const handleSelectionChange = (selected: SelectionData[] | SelectionData) => {
+        if (OnChange?.canExecute) {
+            OnChange.execute();
+        }
         if (associationData && associationData.setValue && objectsDatasources && objectsDatasources.items) {
             // Check if selected is an object (not an array)
             if (typeof selected === "object" && selected !== null && !Array.isArray(selected)) {
@@ -122,6 +140,10 @@ export const ScaletechDropdown = (props: ScaletechDropdownContainerProps): React
                 optionValue={options}
                 placeholderText={myPlaceholderText?.value}
                 isMulti={isMulti}
+                SelectionMethod={SelectionMethod}
+                isSelect={isSelect}
+                CaptionSelect={CaptionSelect.value}
+                readOnly={readOnly}
             />
         </div>
     );

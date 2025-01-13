@@ -3,7 +3,7 @@ import { ScaletechDropdownPreviewProps } from "../typings/ScaletechDropdownProps
 import ReactSelection from "./components/Reactselect";
 
 export const preview = ({}: ScaletechDropdownPreviewProps): ReactElement => {
-    return <ReactSelection/>
+    return <ReactSelection />;
 };
 
 export const getPreviewCss = (): string => {
