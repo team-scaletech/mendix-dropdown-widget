@@ -1,4 +1,4 @@
-## ScaletechDropdown
+## Scaletechdropdown
 [My widget description]
 
 ## Features

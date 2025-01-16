@@ -1,8 +1,8 @@
 import { createElement, FC, useEffect, useState } from "react";
 import Select, { components } from "react-select";
-import { SelectionData } from "src/ScaletechDropdown";
+import { SelectionData } from "src/Scaletechdropdown";
+import { SelectionMethodEnum } from "typings/ScaletechdropdownProps";
 import "../ui/ScaletechDropdown.css";
-import { SelectionMethodEnum } from "typings/ScaletechDropdownProps";
 
 interface SelectionProps {
     SelectionData?: SelectionData[];

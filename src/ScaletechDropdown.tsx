@@ -1,14 +1,14 @@
 import { createElement, ReactElement, useState, useEffect } from "react";
-import { ScaletechDropdownContainerProps } from "../typings/ScaletechDropdownProps";
 import { GUID } from "mendix";
+import "./ui/Scaletechdropdown.css";
+import { ScaletechdropdownContainerProps } from "typings/ScaletechdropdownProps";
 import ReactSelection from "./components/Reactselect";
-
 export interface SelectionData {
     label: string;
     value: string;
 }
 
-export const ScaletechDropdown = (props: ScaletechDropdownContainerProps): ReactElement => {
+export const Scaletechdropdown = (props: ScaletechdropdownContainerProps): ReactElement => {
     const {
         objectsDatasources,
         myOption,

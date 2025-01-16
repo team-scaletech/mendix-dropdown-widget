@@ -1,5 +1,5 @@
 /**
- * This file was generated from ScaletechDropdown.xml
+ * This file was generated from Scaletechdropdown.xml
  * WARNING: All changes made to this file will be overwritten
  * @author Mendix Widgets Framework Team
  */
@@ -17,7 +17,7 @@ export type DataTypeEnum = "Association" | "Enumeration" | "Boolean";
 
 export type SelectionMethodEnum = "Checkbox" | "RowClick";
 
-export interface ScaletechDropdownContainerProps {
+export interface ScaletechdropdownContainerProps {
     name: string;
     tabIndex?: number;
     id: string;
@@ -34,7 +34,7 @@ export interface ScaletechDropdownContainerProps {
     OnChange?: ActionValue;
 }
 
-export interface ScaletechDropdownPreviewProps {
+export interface ScaletechdropdownPreviewProps {
     readOnly: boolean;
     renderMode: "design" | "xray" | "structure";
     translate: (text: string) => string;

@@ -1,4 +1,4 @@
-import { ScaletechDropdownPreviewProps } from "../typings/ScaletechDropdownProps";
+import { ScaletechdropdownPreviewProps } from "../typings/ScaletechdropdownProps";
 import { hidePropertiesIn } from "@mendix/pluggable-widgets-tools";
 
 export type Platform = "web" | "desktop";
@@ -101,7 +101,7 @@ export type PreviewProps =
     | DatasourceProps;
 
 // export function getProperties(
-//     _values: ScaletechDropdownPreviewProps,
+//     _values: ScaletechdropdownPreviewProps,
 //     defaultProperties: Properties /* , target: Platform*/
 // ): Properties {
 //     // Do the values manipulation here to control the visibility of properties in Studio and Studio Pro conditionally.
@@ -113,7 +113,7 @@ export type PreviewProps =
 //     return defaultProperties;
 // }
 
-// export function check(_values: ScaletechDropdownPreviewProps): Problem[] {
+// export function check(_values: ScaletechdropdownPreviewProps): Problem[] {
 //     const errors: Problem[] = [];
 //     // Add errors to the above array to throw errors in Studio and Studio Pro.
 //     /* Example
@@ -128,7 +128,7 @@ export type PreviewProps =
 //     return errors;
 // }
 
-// export function getPreview(values: ScaletechDropdownPreviewProps, isDarkMode: boolean, version: number[]): PreviewProps {
+// export function getPreview(values: ScaletechdropdownPreviewProps, isDarkMode: boolean, version: number[]): PreviewProps {
 //     // Customize your pluggable widget appearance for Studio Pro.
 //     return {
 //         type: "Container",
@@ -136,11 +136,11 @@ export type PreviewProps =
 //     }
 // }
 
-// export function getCustomCaption(values: ScaletechDropdownPreviewProps, platform: Platform): string {
-//     return "ScaletechDropdown";
+// export function getCustomCaption(values: ScaletechdropdownPreviewProps, platform: Platform): string {
+//     return "Scaletechdropdown";
 // }
 
-export function getProperties(_values: ScaletechDropdownPreviewProps, defaultProperties: Properties): Properties {
+export function getProperties(_values: ScaletechdropdownPreviewProps, defaultProperties: Properties): Properties {
     if (_values.DataType === "Association") {
         hidePropertiesIn(defaultProperties, _values, ["EnumerationValue", "BooleanValue"]);
     } else if (_values.DataType === "Enumeration") {
@@ -166,7 +166,7 @@ export function getProperties(_values: ScaletechDropdownPreviewProps, defaultPro
     return defaultProperties;
 }
 
-export function getPreview(values: ScaletechDropdownPreviewProps, isDarkMode: boolean): PreviewProps {
+export function getPreview(values: ScaletechdropdownPreviewProps, isDarkMode: boolean): PreviewProps {
     const readOnlyColor = "lightgray"; // Color when widget is readOnly
     const defaultColor = isDarkMode ? "#333333" : "#FFFFFF";
     const svgIcon = ` <svg

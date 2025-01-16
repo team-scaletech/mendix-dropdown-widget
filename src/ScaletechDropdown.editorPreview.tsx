@@ -1,11 +1,11 @@
 import { ReactElement, createElement } from "react";
-import { ScaletechDropdownPreviewProps } from "../typings/ScaletechDropdownProps";
+import { ScaletechdropdownPreviewProps } from "../typings/ScaletechdropdownProps";
 import ReactSelection from "./components/Reactselect";
 
-export const preview = ({}: ScaletechDropdownPreviewProps): ReactElement => {
+export const preview = ({}: ScaletechdropdownPreviewProps): ReactElement => {
     return <ReactSelection />;
 };
 
-export const getPreviewCss = (): string => {
-    return require("./ui/ScaletechDropdown.css");
-};
+export function getPreviewCss(): string {
+    return require("./ui/Scaletechdropdown.css");
+}
